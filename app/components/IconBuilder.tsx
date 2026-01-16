@@ -114,8 +114,8 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                 />
                             </div>
                             <div>
-                                <h1 className="text-3xl font-bold tracking-tight text-white">
-                                    Readme Skill Icons
+                                <h1 className="text-2xl font-bold tracking-tight text-white">
+                                    Readme Icons
                                 </h1>
                                 <p className="text-zinc-400 text-base">Make your GitHub README stand out with this easy & quick icon tool.</p>
                             </div>

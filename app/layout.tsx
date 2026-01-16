@@ -5,7 +5,7 @@ import './globals.css';
 const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Readme Skill Icons',
+  title: 'Readme Icons',
   description: 'Generate dynamic SVG skill icons for your GitHub Profile',
 };
 

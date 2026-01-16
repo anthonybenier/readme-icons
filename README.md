@@ -1,4 +1,4 @@
-# Readme Skill Icons ⚡️
+# Readme Icons ⚡️
 
 Generate dynamic, beautiful SVG skill icons for your GitHub Profile README.
 
@@ -70,7 +70,7 @@ Want to fork this and host it yourself? It's open source!
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/anthonybenier/readme-skill-icons.git
+   git clone https://github.com/anthonybenier/readme-icons.git
    cd readme-skill-icons
    ```
 
