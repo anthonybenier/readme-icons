@@ -27,52 +27,32 @@ https://your-domain.com/api/icons?i=slug1,slug2,slug3&param=value
 | `align` | Alignment of icons (`left`, `center`, `right`) | `left` | `center` |
 | `labels` | Show technology name under icon (`true`, `false`) | `false` | `true` |
 
-### Examples
+### Example
 
-**Default (Dark Theme)**
 ```markdown
-![My Skills](https://your-domain.com/api/icons?i=react,ts,nextjs)
+![My Skills](https://your-domain.com/api/icons?i=react,ts,nextjs,aws,docker&t=light)
 ```
 
-**Light Theme & Grid Layout**
-```markdown
-![My Skills](https://your-domain.com/api/icons?i=react,ts,nextjs,aws,docker,linux&t=light&perline=3)
-```
+## Icons
 
-**With Labels & Center Alignment**
-```markdown
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://your-domain.com/api/icons?i=react,ts,nextjs&labels=true&align=center" />
-  </a>
-</p>
-```
+This project uses [Simple Icons](https://simpleicons.org/).
+**Missing an icon?** Please check if it exists on Simple Icons first. If not, open an issue/PR there. We update our dependencies regularly.
 
 ## For Developers
 
-This project is open source.
-
-### Getting Started
-
-1. **Clone the repository**
+1. **Clone & Install**
    ```bash
-   git clone https://github.com/anthonybenier/readme-icons.git
-   cd readme-icons
+   git clone https://github.com/anthonybenier/readme-icons.git && cd readme-icons && npm install
    ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Run development server**
+2. **Run**
    ```bash
    npm run dev
    ```
 
 ## Support
 
-If you find this project helpful, please consider giving it a ⭐ on GitHub! It helps a lot.
+If you find this project helpful, please consider giving it a ⭐ on GitHub!
 
 ## License
 

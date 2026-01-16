@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
-import { Search, Copy, Check, X, GripVertical, Trash2, ArrowUpRight, Settings, Moon, Sun, LayoutGrid, Github, Linkedin } from 'lucide-react';
+import { Search, Copy, Check, GripVertical, Trash2, Settings, Moon, Sun, Github } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 

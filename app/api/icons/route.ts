@@ -27,7 +27,7 @@ export function GET(req: NextRequest) {
     return new NextResponse('Missing "i" parameter', { status: 400 });
   }
 
-  const requestedSlugs = iconsParam.split(',');
+  const requestedSlugs = iconsParam.split(',').slice(0, 50); // Limit to 50 icons for DoS protection
   const icons: SimpleIcon[] = [];
 
   for (const slug of requestedSlugs) {
