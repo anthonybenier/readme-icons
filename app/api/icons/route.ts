@@ -96,16 +96,13 @@ export function GET(req: NextRequest) {
     // Light: White Background, Hex Icon
     const rectFill = theme === 'light' ? 'white' : `#${icon.hex}`;
     const pathFill = theme === 'light' ? `#${icon.hex}` : 'white';
-    const textColor = theme === 'light' ? '#333' : '#ccc';
 
     const labelElement = showLabels ? `
       <text 
         x="${safeSize / 2}" 
         y="${safeSize + 12}" 
         text-anchor="middle" 
-        font-family="Arial, Helvetica, sans-serif" 
-        font-size="10" 
-        fill="${textColor}"
+        class="label"
         opacity="0.8"
       >${icon.title}</text>
     ` : '';
@@ -121,6 +118,12 @@ export function GET(req: NextRequest) {
 
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <style>
+        .label { font-family: Arial, Helvetica, sans-serif; font-size: 10px; fill: #333; }
+        @media (prefers-color-scheme: dark) {
+          .label { fill: #fff; }
+        }
+      </style>
       ${svgContent}
     </svg>
   `;
