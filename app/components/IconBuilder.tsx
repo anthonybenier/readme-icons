@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
-import { Search, Copy, Check, GripVertical, Trash2, Settings, Moon, Sun, Github } from 'lucide-react';
+import { Search, Copy, Check, GripVertical, Trash2, Settings, Moon, Sun, Github, Download, Image as ImageIcon } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -27,6 +27,11 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [copied, setCopied] = useState(false);
     const [isClient, setIsClient] = useState(false);
+
+    // Image Actions State
+    const [downloading, setDownloading] = useState(false);
+    const [copyingImage, setCopyingImage] = useState(false);
+    const [imageCopied, setImageCopied] = useState(false);
 
     // Customization State
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -77,7 +82,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const absoluteUrl = iconSlugs ? `${baseUrl}/api/icons?${queryString}` : '';
     const targetLink = customLink || baseUrl;
 
-    let markdownCode = `[![My Skills](${absoluteUrl})](${targetLink})`;
+    let markdownCode = `[![Icons](${absoluteUrl})](${targetLink})`;
     if (alignment === 'center') {
         markdownCode = `<p align="center">\n  ${markdownCode}\n</p>`;
     } else if (alignment === 'right') {
@@ -88,6 +93,62 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
         navigator.clipboard.writeText(markdownCode);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleCopyImage = async () => {
+        if (!previewUrl) return;
+        setCopyingImage(true);
+        try {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = previewUrl;
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("Could not get canvas context");
+
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob(async (blob) => {
+                if (!blob) throw new Error("Could not create blob");
+                await navigator.clipboard.write([
+                    new ClipboardItem({ "image/png": blob })
+                ]);
+                setCopyingImage(false);
+                setImageCopied(true);
+                setTimeout(() => setImageCopied(false), 2000);
+            }, "image/png");
+        } catch (error) {
+            console.error("Failed to copy image:", error);
+            setCopyingImage(false);
+        }
+    };
+
+    const handleDownloadImage = async () => {
+        if (!previewUrl) return;
+        setDownloading(true);
+        try {
+            const response = await fetch(previewUrl);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'readme-icons.svg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Failed to download image:", error);
+        } finally {
+            setDownloading(false);
+        }
     };
 
     if (!isClient) return <div className="h-screen bg-black"></div>;
@@ -395,6 +456,29 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                         <span className="text-zinc-700 text-sm">Preview will appear here</span>
                                     )}
                                 </div>
+
+                                {/* Image Actions */}
+                                {selectedIcons.length > 0 && (
+                                    <div className="px-4 pt-4 pb-2 flex gap-2 relative z-10">
+                                        <button
+                                            onClick={handleCopyImage}
+                                            className={cn(
+                                                "flex-1 flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 transition-all text-xs font-medium",
+                                                imageCopied ? "bg-green-500/20 text-green-400" : "bg-white/5 hover:bg-white/10 active:bg-white/15 text-zinc-300 hover:text-white"
+                                            )}
+                                        >
+                                            {imageCopied ? <Check className="w-3 h-3" /> : (copyingImage ? null : <ImageIcon className="w-3 h-3" />)}
+                                            {imageCopied ? 'Copied' : (copyingImage ? 'Copying...' : 'Copy Image')}
+                                        </button>
+                                        <button
+                                            onClick={handleDownloadImage}
+                                            className="flex-1 flex items-center justify-center gap-2 py-2 bg-white/5 hover:bg-white/10 active:bg-white/15 rounded-xl border border-white/5 transition-all text-xs font-medium text-zinc-300 hover:text-white"
+                                        >
+                                            <Download className="w-3 h-3" />
+                                            {downloading ? 'Downloading...' : 'Download SVG'}
+                                        </button>
+                                    </div>
+                                )}
 
                                 {/* Markdown Code Section */}
                                 {selectedIcons.length > 0 && (

@@ -11,11 +11,14 @@ Generate dynamic, beautiful SVG skill icons for your GitHub Profile README.
 ### 1. Build your Stack
 Use the [Builder Interface](https://readme-icons.vercel.app/) to interactively search, select, and configure your stack.
 
+### 1.1 Easy search
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/icon_search.gif?raw=true)
+
 ### 2. Manual URL Construction
 Alternatively, you can construct the URL manually:
 
 ```
-https://your-domain.com/api/icons?i=slug1,slug2,slug3&param=value
+https://readme-icons.vercel.app/api/icons?i=slug1,slug2,slug3&param=value
 ```
 
 ### Parameters
@@ -32,7 +35,7 @@ https://your-domain.com/api/icons?i=slug1,slug2,slug3&param=value
 ### Example
 
 ```markdown
-![My Skills](https://your-domain.com/api/icons?i=react,ts,nextjs,aws,docker&t=light)
+![Icons](https://your-domain.com/api/icons?i=react,ts,nextjs,aws,docker&t=light)
 ```
 
 ## Icons
