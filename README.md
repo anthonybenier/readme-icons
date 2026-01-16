@@ -1,3 +1,5 @@
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/banner.png?raw=true)
+
 # Readme Icons
 
 Generate dynamic, beautiful SVG skill icons for your GitHub Profile README.
