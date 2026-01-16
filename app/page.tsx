@@ -18,7 +18,7 @@ export default function Home() {
   }));
 
   return (
-    <main className="min-h-screen py-12 px-4 selection:bg-blue-500/30">
+    <main className="selection:bg-blue-500/30">
       <IconBuilder allIcons={allIcons} />
     </main>
   );
