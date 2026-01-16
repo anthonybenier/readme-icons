@@ -48,6 +48,7 @@ export function GET(req: NextRequest) {
   const size = parseInt(searchParams.get('size') || '48', 10);
 
   const align = (searchParams.get('align') || 'left') as 'left' | 'center' | 'right';
+  const showLabels = searchParams.get('labels') === 'true';
 
   // Validation constraints
   const safePerLine = Math.max(1, Math.min(perLine, 50));
@@ -56,6 +57,8 @@ export function GET(req: NextRequest) {
   // SVG Generation Constants
   const iconPadding = safeSize * 0.25; // Proportional padding
   const gap = safeSize * 0.2; // Proportional gap
+  const labelHeight = showLabels ? 14 : 0;
+  const itemHeight = safeSize + labelHeight;
 
   // Calculate Dimensions
   const numIcons = icons.length;
@@ -64,7 +67,7 @@ export function GET(req: NextRequest) {
   // Width is based on the max items in a row (could be less than perLine if total < perLine)
   const actualPerLine = Math.min(numIcons, safePerLine);
   const width = actualPerLine * safeSize + (actualPerLine - 1) * gap;
-  const height = numRows * safeSize + (numRows - 1) * gap;
+  const height = numRows * itemHeight + (numRows - 1) * gap;
 
   const svgContent = icons.map((icon, index) => {
     const col = index % safePerLine;
@@ -86,18 +89,32 @@ export function GET(req: NextRequest) {
     }
 
     const x = col * (safeSize + gap) + offsetX;
-    const y = row * (safeSize + gap);
+    const y = row * (itemHeight + gap);
 
     // Theme Logic
     // Dark: Hex Background, White Icon
     // Light: White Background, Hex Icon
     const rectFill = theme === 'light' ? 'white' : `#${icon.hex}`;
     const pathFill = theme === 'light' ? `#${icon.hex}` : 'white';
+    const textColor = theme === 'light' ? '#333' : '#ccc';
+
+    const labelElement = showLabels ? `
+      <text 
+        x="${safeSize / 2}" 
+        y="${safeSize + 12}" 
+        text-anchor="middle" 
+        font-family="Arial, Helvetica, sans-serif" 
+        font-size="10" 
+        fill="${textColor}"
+        opacity="0.8"
+      >${icon.title}</text>
+    ` : '';
 
     return `
       <g transform="translate(${x}, ${y})">
         <rect width="${safeSize}" height="${safeSize}" rx="${safeSize * 0.2}" fill="${rectFill}" />
         <path d="${icon.path}" fill="${pathFill}" transform="translate(${iconPadding}, ${iconPadding}) scale(${(safeSize - iconPadding * 2) / 24})" />
+        ${labelElement}
       </g>
     `;
   }).join('');

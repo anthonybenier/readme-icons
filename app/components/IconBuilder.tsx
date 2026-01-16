@@ -33,6 +33,8 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const [iconSize, setIconSize] = useState(48);
     const [iconsPerLine, setIconsPerLine] = useState(15);
     const [alignment, setAlignment] = useState<'center' | 'left' | 'right'>('center');
+    const [showLabels, setShowLabels] = useState(false);
+    const [customLink, setCustomLink] = useState('');
 
     useEffect(() => {
         setIsClient(true);
@@ -68,12 +70,14 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     if (iconSize !== 48) params.set('size', iconSize.toString());
     if (iconsPerLine !== 15) params.set('perline', iconsPerLine.toString());
     if (alignment !== 'center') params.set('align', alignment);
+    if (showLabels) params.set('labels', 'true');
 
     const queryString = params.toString();
     const previewUrl = iconSlugs ? `/api/icons?${queryString}` : null;
     const absoluteUrl = iconSlugs ? `${baseUrl}/api/icons?${queryString}` : '';
+    const targetLink = customLink || baseUrl;
 
-    let markdownCode = `[![My Skills](${absoluteUrl})](${baseUrl})`;
+    let markdownCode = `[![My Skills](${absoluteUrl})](${targetLink})`;
     if (alignment === 'center') {
         markdownCode = `<p align="center">\n  ${markdownCode}\n</p>`;
     } else if (alignment === 'right') {
@@ -291,6 +295,38 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                                     {align}
                                                 </button>
                                             ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Features */}
+                                    <div className="space-y-3 pt-2 border-t border-white/5">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Show Labels</label>
+                                            <button
+                                                onClick={() => setShowLabels(!showLabels)}
+                                                className={cn(
+                                                    "w-12 h-6 rounded-full transition-colors relative",
+                                                    showLabels ? "bg-blue-500" : "bg-zinc-800"
+                                                )}
+                                            >
+                                                <div className={cn(
+                                                    "absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-md",
+                                                    showLabels ? "left-7" : "left-1"
+                                                )} />
+                                            </button>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
+                                                Custom Link <span className="text-zinc-600 lowercase font-normal">(optional)</span>
+                                            </label>
+                                            <input
+                                                type="url"
+                                                placeholder="https://your-portfolio.com"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 text-sm text-zinc-300 placeholder:text-zinc-700 transition-colors"
+                                                value={customLink}
+                                                onChange={(e) => setCustomLink(e.target.value)}
+                                            />
                                         </div>
                                     </div>
 

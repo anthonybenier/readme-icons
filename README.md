@@ -32,6 +32,8 @@ https://your-domain.vercel.app/api/icons?i=slug1,slug2,slug3&param=value
 | `t` | Theme (`dark` or `light`) | `dark` | `light` |
 | `perline` | Number of icons per line before wrapping | `15` | `5` |
 | `size` | Size of each icon in pixels | `48` | `64` |
+| `align` | Alignment of icons (`left`, `center`, `right`) | `left` | `center` |
+| `labels` | Show technology name under icon (`true`, `false`) | `false` | `true` |
 
 #### Examples
 
@@ -41,6 +43,15 @@ https://your-domain.vercel.app/api/icons?i=slug1,slug2,slug3&param=value
 ```
 
 **Light Theme & Grid Layout:**
+```
+
+**With Labels & Center Alignment:**
+```markdown
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://your-domain.vercel.app/api/icons?i=react,ts,nextjs&labels=true&align=center" />
+  </a>
+</p>
 ```markdown
 ![My Skills](https://your-domain.vercel.app/api/icons?i=react,ts,nextjs,aws,docker,linux&t=light&perline=3)
 ```
