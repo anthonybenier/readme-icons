@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Copy, Check, Palette, Type } from 'lucide-react';
 import Link from 'next/link';
+import Footer from './Footer';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -106,40 +107,48 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
             <div className="flex-1 overflow-hidden relative">
                 <div className="h-full grid grid-cols-1 lg:grid-cols-12 w-full">
 
-                    {/* Left Column: Configuration */}
-                    <div className="lg:col-span-5 h-full overflow-y-auto p-4 md:p-6 lg:p-8 relative border-r border-white/5 bg-zinc-950/50">
-                        <div className="max-w-xl mx-auto space-y-8 pb-20">
+                    {/* Left Column: Search & Content (7 cols) */}
+                    <div className="lg:col-span-7 h-full flex flex-col relative">
+                        {/* Vertical Separator */}
+                        <div className="hidden lg:block absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent" />
 
-                            {/* Header & Nav */}
-                            <div className="space-y-6">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 relative flex items-center justify-center">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src="/logo.webp" alt="Logo" className="w-full h-full object-contain" />
-                                    </div>
-                                    <h2 className="text-2xl font-bold text-white">Readme Icons</h2>
+                        {/* Header */}
+                        <div className="flex flex-col gap-6 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 relative flex items-center justify-center">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src="/logo.webp" alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" />
                                 </div>
-
-                                <div className="flex gap-4 border-b border-white/5 mb-8">
-                                    <Link href="/" className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 transition-colors">
-                                        Skill Icons
-                                    </Link>
-                                    <Link href="/badges" className="px-4 py-2 text-sm font-medium text-white border-b-2 border-blue-500">
-                                        Badge Builder
-                                    </Link>
+                                <div>
+                                    <h1 className="text-2xl font-bold tracking-tight text-white">Readme Icons</h1>
+                                    <p className="text-zinc-400 text-base">Make your GitHub README stand out.</p>
                                 </div>
                             </div>
 
+                            {/* Navigation Tabs */}
+                            <div className="flex gap-4 border-b border-white/5">
+                                <Link href="/" className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 transition-colors">
+                                    Skill Icons
+                                </Link>
+                                <Link href="/badges" className="px-4 py-2 text-sm font-medium text-white border-b-2 border-blue-500">
+                                    Badge Builder
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Content Scroll Area */}
+                        <div className="flex-1 overflow-y-auto space-y-8 px-6 md:px-8 lg:px-12 pb-20 custom-scrollbar">
+
                             {/* 1. Select Tech */}
                             <div className="space-y-4">
-                                <label className="text-sm font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-                                    <Search className="w-4 h-4" /> 1. Select Technology
-                                </label>
                                 <div className="relative group">
+                                    <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                                        <Search className="w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors" />
+                                    </div>
                                     <input
                                         type="text"
-                                        placeholder="Search icon (e.g. Next.js)..."
-                                        className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                                        placeholder="Search technology (e.g. Next.js)..."
+                                        className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
@@ -151,18 +160,18 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 10 }}
-                                                className="absolute w-full mt-2 bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl max-h-[300px] overflow-y-auto z-50"
+                                                className="absolute w-full mt-4 bg-zinc-900/95 backdrop-blur-xl border border-zinc-800 rounded-2xl shadow-2xl max-h-[400px] overflow-y-auto z-50 p-2"
                                             >
                                                 {filteredIcons.map((icon) => (
                                                     <button
                                                         key={icon.slug}
                                                         onClick={() => selectIcon(icon)}
-                                                        className="flex items-center gap-3 w-full p-3 hover:bg-zinc-800 transition-colors text-left"
+                                                        className="flex items-center gap-3 w-full p-3 hover:bg-zinc-800/80 rounded-xl transition-all text-left group"
                                                     >
-                                                        <div className="w-6 h-6 p-1 rounded bg-zinc-800">
+                                                        <div className="w-8 h-8 p-1.5 rounded-lg bg-zinc-800 border border-zinc-700 group-hover:border-zinc-600">
                                                             <svg viewBox="0 0 24 24" fill={`#${icon.hex}`}><path d={icon.path} /></svg>
                                                         </div>
-                                                        <span className="text-zinc-200">{icon.title}</span>
+                                                        <span className="text-zinc-300 group-hover:text-white font-medium">{icon.title}</span>
                                                     </button>
                                                 ))}
                                             </motion.div>
@@ -171,79 +180,53 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                 </div>
                             </div>
 
-                            {/* 2. Text Content */}
-                            <div className="space-y-4">
-                                <label className="text-sm font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-                                    <Type className="w-4 h-4" /> 2. Content
-                                </label>
-                                <div className="grid grid-cols-2 gap-4">
+                            {/* 2. Content Configuration */}
+                            <div className="space-y-6">
+                                <h3 className="text-xl font-semibold text-zinc-300 flex items-center gap-2">
+                                    <Type className="w-5 h-5 text-zinc-500" /> Content
+                                </h3>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <span className="text-xs text-zinc-500">Label (Left)</span>
+                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Label (Left)</label>
                                         <input
                                             type="text"
                                             value={label}
                                             onChange={(e) => setLabel(e.target.value)}
-                                            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg outline-none focus:border-blue-500/50"
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <span className="text-xs text-zinc-500">Message (Right)</span>
+                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Message (Right)</label>
                                         <input
                                             type="text"
                                             value={message}
                                             onChange={(e) => setMessage(e.target.value)}
-                                            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg outline-none focus:border-blue-500/50"
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
                                         />
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* 3. Style & Color */}
-                            <div className="space-y-4">
-                                <label className="text-sm font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-                                    <Palette className="w-4 h-4" /> 3. Style & Color
-                                </label>
-
-                                <div className="space-y-2">
-                                    <span className="text-xs text-zinc-500">Badge Style</span>
-                                    <div className="grid grid-cols-3 gap-2">
-                                        {(['flat', 'flat-square', 'for-the-badge', 'plastic', 'social'] as const).map((s) => (
-                                            <button
-                                                key={s}
-                                                onClick={() => setStyle(s)}
-                                                className={cn(
-                                                    "px-2 py-2 text-xs rounded-lg border transition-all truncate",
-                                                    style === s
-                                                        ? "bg-blue-500/20 border-blue-500 text-blue-400"
-                                                        : "bg-zinc-900 border-zinc-700 hover:border-zinc-500 text-zinc-400"
-                                                )}
-                                            >
-                                                {s}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <span className="text-xs text-zinc-500">Color (Hex or Name)</span>
-                                        <div className="flex gap-2">
-                                            <div className="w-10 h-10 rounded-lg border border-white/10 shrink-0" style={{ backgroundColor: color.startsWith('#') ? color : `#${color}` }} />
+                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Color</label>
+                                        <div className="flex gap-3">
+                                            <div className="w-12 h-12 rounded-xl border border-white/10 shrink-0 shadow-lg" style={{ backgroundColor: color.startsWith('#') ? color : `#${color}` }} />
                                             <input
                                                 type="text"
                                                 value={color}
                                                 onChange={(e) => setColor(e.target.value)}
-                                                className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg outline-none focus:border-blue-500/50 font-mono text-sm"
+                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors font-mono text-sm uppercase text-zinc-300"
                                             />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <span className="text-xs text-zinc-500">Logo Color</span>
+                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Logo Color</label>
                                         <select
                                             value={logoColor}
                                             onChange={(e) => setLogoColor(e.target.value)}
-                                            className="w-full px-3 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg outline-none focus:border-blue-500/50 text-sm"
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 appearance-none text-zinc-300"
                                         >
                                             <option value="white">White</option>
                                             <option value="black">Black</option>
@@ -252,54 +235,93 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                    {/* Right Column: Preview */}
-                    <div className="lg:col-span-7 h-full flex items-center justify-center p-8 bg-[#0D1117] relative">
-                        <div className="absolute inset-0 bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                    {/* Right Column: Settings & Preview (5 cols) */}
+                    <div className="lg:col-span-5 h-full overflow-y-auto p-4 md:p-6 lg:p-8 relative">
+                        <div className="max-w-xl mx-auto space-y-4 pb-20">
 
-                        <div className="w-full max-w-2xl space-y-8 relative z-10">
-
-                            {/* Visual Preview */}
-                            <div className="flex flex-col items-center justify-center gap-8 min-h-[200px]">
-                                <motion.img
-                                    key={previewUrl} // Trigger animation on URL change
-                                    initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    src={previewUrl}
-                                    alt="Badge Preview"
-                                    className="h-auto max-w-full drop-shadow-2xl"
-                                />
-                            </div>
-
-                            {/* Markdown Code */}
-                            <div className="glass rounded-xl p-1 border border-white/10 bg-black/40">
-                                <div className="flex items-center justify-between px-4 py-2 border-b border-white/5">
-                                    <span className="text-xs font-semibold text-zinc-500 uppercase">Markdown</span>
-                                    <button
-                                        onClick={copyToClipboard}
-                                        className={cn(
-                                            "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                                            copied ? "bg-green-500/20 text-green-400" : "bg-white/5 hover:bg-white/10 text-zinc-300"
-                                        )}
-                                    >
-                                        {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                                        {copied ? 'Copied' : 'Copy'}
-                                    </button>
+                            {/* Settings Panel */}
+                            <div className="glass rounded-3xl p-5 space-y-4">
+                                <div className="flex items-center gap-2 text-zinc-300 font-semibold border-b border-white/5 pb-3">
+                                    <Palette className="w-5 h-5" />
+                                    <h3>Style Configuration</h3>
                                 </div>
-                                <div className="p-4 overflow-x-auto">
-                                    <code className="text-sm font-mono text-zinc-300 whitespace-nowrap">
-                                        {markdownCode}
-                                    </code>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Badge Style</label>
+                                    <div className="grid grid-cols-2 gap-2 bg-black/20 p-1 rounded-xl">
+                                        {(['flat', 'flat-square', 'for-the-badge', 'plastic', 'social'] as const).map((s) => (
+                                            <button
+                                                key={s}
+                                                onClick={() => setStyle(s)}
+                                                className={cn(
+                                                    "px-3 py-2 text-sm rounded-lg transition-all truncate font-medium capitalize",
+                                                    style === s
+                                                        ? "bg-zinc-800 text-white shadow-lg"
+                                                        : "text-zinc-500 hover:text-zinc-300"
+                                                )}
+                                            >
+                                                {s.replace(/-/g, ' ')}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
+
+                            {/* Preview Card */}
+                            <div className="glass rounded-3xl overflow-hidden relative group p-1">
+                                <div className="p-4 border-b border-white/5 flex items-center justify-between relative z-10">
+                                    <h3 className="font-semibold text-zinc-300 flex items-center gap-2">Preview</h3>
+                                    <div className="flex gap-2">
+                                        <div className="w-3 h-3 rounded-full bg-red-500/20" />
+                                        <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
+                                        <div className="w-3 h-3 rounded-full bg-green-500/20" />
+                                    </div>
+                                </div>
+
+                                <div className="p-8 min-h-[160px] flex items-center justify-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5">
+                                    <motion.img
+                                        key={previewUrl}
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        src={previewUrl}
+                                        alt="Badge Preview"
+                                        className="max-w-full h-auto drop-shadow-2xl"
+                                    />
+                                </div>
+
+                                <div className="p-4 relative z-10 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Markdown</h3>
+                                        <button
+                                            onClick={copyToClipboard}
+                                            className={cn(
+                                                "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                                                copied ? "bg-green-500/20 text-green-400" : "bg-white/5 hover:bg-white/10 text-zinc-300"
+                                            )}
+                                        >
+                                            {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                                            {copied ? 'Copied' : 'Copy'}
+                                        </button>
+                                    </div>
+                                    <div className="bg-black/50 rounded-xl p-3 border border-white/5 overflow-hidden relative cursor-text group/code" onClick={copyToClipboard}>
+                                        <code className="text-xs text-zinc-400 font-mono break-all leading-relaxed group-hover/code:text-zinc-300 transition-colors">
+                                            {markdownCode}
+                                        </code>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
                 </div>
             </div>
+
+            {/* Footer */}
+            <Footer />
         </div>
     );
 }
