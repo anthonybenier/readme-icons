@@ -21,33 +21,8 @@ Use the [Builder Interface](https://readme-icons.com) to interactively search, s
 ![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/easy_copypaste.gif?raw=true)
 
 
-### 2. Manual URL Construction
-Alternatively, you can construct the URL manually:
-
-```
-https://readme-icons.com/api/icons?i=slug1,slug2,slug3&param=value
-```
-
-### Parameters
-
-| Parameter | Description | Default | Example |
-| :--- | :--- | :--- | :--- |
-| `i` | Comma-separated list of icon slugs | `''` | `react,docker,aws` |
-| `t` | Theme (`dark` or `light`) | `dark` | `light` |
-| `perline` | Number of icons per line before wrapping | `15` | `5` |
-| `size` | Size of each icon in pixels | `48` | `64` |
-| `align` | Alignment of icons (`left`, `center`, `right`) | `left` | `center` |
-| `labels` | Show technology name under icon (`true`, `false`) | `false` | `true` |
-
-### Example
-
-```markdown
-![Icons](https://readme-icons.com/api/icons?i=react,ts,nextjs,aws,docker&t=light)
-```
-
-## Icons
-
-This project uses [Simple Icons](https://simpleicons.org/).
+## Credits
+This project uses **[Simple Icons](https://simpleicons.org/)** for technology logos and **[Shields.io](https://shields.io/)** for badge generation.
 **Missing an icon?** Please check if it exists on Simple Icons first. If not, open an issue/PR there. We update our dependencies regularly.
 
 ## For Developers
