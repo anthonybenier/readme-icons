@@ -29,15 +29,12 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [isClient, setIsClient] = useState(false);
     const [copied, setCopied] = useState(false);
 
-    // Default icon (react)
-    const defaultIcon = allIcons.find(icon => icon.slug === 'react');
-
     // Badge State
     const [mode, setMode] = useState<'custom' | 'github'>('custom');
-    const [selectedIcon, setSelectedIcon] = useState<SimpleIcon | null>(defaultIcon || null);
+    const [selectedIcon, setSelectedIcon] = useState<SimpleIcon | null>(null);
 
     // Custom Mode State
-    const [label, setLabel] = useState(defaultIcon?.title || 'Label');
+    const [label, setLabel] = useState('Label');
     const [message, setMessage] = useState('Message');
 
     // GitHub Mode State
@@ -46,7 +43,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [ghType, setGhType] = useState('stars');
 
     // Shared State
-    const [color, setColor] = useState(defaultIcon?.hex || 'blue');
+    const [color, setColor] = useState('blue');
     const [logoColor, setLogoColor] = useState('white');
     const [style, setStyle] = useState<'flat' | 'flat-square' | 'for-the-badge' | 'plastic' | 'social'>('for-the-badge');
     const [customLink, setCustomLink] = useState('');
@@ -146,13 +143,13 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     if (!isClient) return <div className="h-screen bg-black"></div>;
 
     return (
-        <div className="h-screen flex flex-col overflow-hidden text-zinc-200">
+        <div className="min-h-screen lg:h-screen flex flex-col lg:overflow-hidden text-zinc-200">
             {/* Main Content */}
-            <div className="flex-1 overflow-hidden relative">
-                <div className="h-full grid grid-cols-1 lg:grid-cols-12 w-full">
+            <div className="flex-1 lg:overflow-hidden relative">
+                <div className="lg:h-full grid grid-cols-1 lg:grid-cols-12 w-full">
 
                     {/* Left Column: Search & Content (7 cols) */}
-                    <div className="lg:col-span-7 h-full flex flex-col relative">
+                    <div className="lg:col-span-7 lg:h-full flex flex-col relative min-h-0">
                         {/* Vertical Separator */}
                         <div className="hidden lg:block absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent" />
 
@@ -181,7 +178,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                         </div>
 
                         {/* Content Scroll Area */}
-                        <div className="flex-1 overflow-y-auto space-y-8 px-6 md:px-8 lg:px-12 pb-20 custom-scrollbar">
+                        <div className="lg:flex-1 lg:overflow-y-auto min-h-0 space-y-8 px-6 md:px-8 lg:px-12 pb-10 lg:pb-20 custom-scrollbar">
 
                             {/* 1. Select Tech */}
                             <div className="space-y-4">
@@ -395,8 +392,8 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                     </div>
 
                     {/* Right Column: Settings & Preview (5 cols) */}
-                    <div className="lg:col-span-5 h-full overflow-y-auto p-4 md:p-6 lg:p-8 relative">
-                        <div className="max-w-xl mx-auto space-y-4 pb-20">
+                    <div className="lg:col-span-5 lg:h-full lg:overflow-y-auto min-h-0 p-4 md:p-6 lg:p-8 relative">
+                        <div className="max-w-xl mx-auto space-y-4">
 
                             {/* Settings Panel */}
                             <div className="glass rounded-3xl p-5 space-y-4">
