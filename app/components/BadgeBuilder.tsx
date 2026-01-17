@@ -197,6 +197,33 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         )}
                                     </AnimatePresence>
                                 </div>
+
+                                {/* Selected Icon Display */}
+                                <div className="flex items-center justify-between bg-zinc-900/50 border border-white/5 p-4 rounded-xl">
+                                    <div className="flex items-center gap-3">
+                                        {selectedIcon ? (
+                                            <>
+                                                <div className="w-10 h-10 p-2 rounded-lg bg-zinc-800 border border-zinc-700">
+                                                    <svg viewBox="0 0 24 24" fill={`#${selectedIcon.hex}`} className="w-full h-full"><path d={selectedIcon.path} /></svg>
+                                                </div>
+                                                <div>
+                                                    <div className="text-sm font-medium text-zinc-200">{selectedIcon.title}</div>
+                                                    <div className="text-xs text-zinc-500 font-mono">#{selectedIcon.hex}</div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="text-zinc-500 text-sm italic">No logo selected</div>
+                                        )}
+                                    </div>
+                                    {selectedIcon && (
+                                        <button
+                                            onClick={() => setSelectedIcon(null)}
+                                            className="text-xs bg-zinc-800 hover:bg-red-500/20 hover:text-red-400 text-zinc-400 px-3 py-1.5 rounded-lg border border-zinc-700 hover:border-red-500/30 transition-all font-medium"
+                                        >
+                                            Remove Logo
+                                        </button>
+                                    )}
+                                </div>
                             </div>
 
                             {/* 2. Content Configuration */}
