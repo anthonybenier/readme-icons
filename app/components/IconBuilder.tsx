@@ -205,7 +205,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                     </div>
                                     <input
                                         type="text"
-                                        placeholder="Search technologies (e.g. React, Next.js, Docker)..."
+                                        placeholder="Search an icon (e.g. Next.js, Docker, Python)..."
                                         className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}

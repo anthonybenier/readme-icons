@@ -33,9 +33,19 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const defaultIcon = allIcons.find(icon => icon.slug === 'react');
 
     // Badge State
+    const [mode, setMode] = useState<'custom' | 'github'>('custom');
     const [selectedIcon, setSelectedIcon] = useState<SimpleIcon | null>(defaultIcon || null);
+
+    // Custom Mode State
     const [label, setLabel] = useState(defaultIcon?.title || 'Label');
     const [message, setMessage] = useState('Message');
+
+    // GitHub Mode State
+    const [ghUser, setGhUser] = useState('anthonybenier');
+    const [ghRepo, setGhRepo] = useState('readme-icons');
+    const [ghType, setGhType] = useState('stars');
+
+    // Shared State
     const [color, setColor] = useState(defaultIcon?.hex || 'blue');
     const [logoColor, setLogoColor] = useState('white');
     const [style, setStyle] = useState<'flat' | 'flat-square' | 'for-the-badge' | 'plastic' | 'social'>('for-the-badge');
@@ -65,48 +75,66 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
 
     // Generate Shields.io URL
     const generateUrl = () => {
-        // Format: https://img.shields.io/badge/Label-Message-Color?style=Style&logo=Logo&logoColor=LogoColor
+        // Shared Parameters
+        const params = new URLSearchParams();
+        params.set('style', style);
 
         // Enhance: Shields.io uses special escaping for dashes and underscores
-        // Dash (-) -> --
-        // Underscore (_) -> __
-        // Space ( ) -> _
         const escape = (str: string) => str.replace(/-/g, '--').replace(/_/g, '__').replace(/ /g, '_');
         const cleanColor = (hex: string) => hex.replace(/^#/, '');
 
-        const safeLabel = escape(label || '');
-        const safeMessage = escape(message || '');
         const safeColor = cleanColor(color);
         const safeLogoColor = cleanColor(logoColor);
 
-        // If no label, the format is just Message-Color
-        // We must encode components to handle special characters like / ? & # which would break the URL structure
-        const encodedLabel = encodeURIComponent(safeLabel);
-        const encodedMessage = encodeURIComponent(safeMessage);
-
-        const path = encodedLabel ? `${encodedLabel}-${encodedMessage}` : encodedMessage;
-        const colorPart = safeColor ? `-${safeColor}` : '';
-
-        const url = new URL(`https://img.shields.io/badge/${path}${colorPart}`);
-        url.searchParams.set('style', style);
-
         if (selectedIcon) {
-            url.searchParams.set('logo', selectedIcon.slug);
+            params.set('logo', selectedIcon.slug);
         }
 
-        if (safeLogoColor && safeLogoColor !== 'white') { // Optimized: Default logo color often implied or handled better without explicit white sometimes?
-            url.searchParams.set('logoColor', safeLogoColor);
+        if (safeLogoColor && safeLogoColor !== 'white') {
+            params.set('logoColor', safeLogoColor);
         } else if (safeLogoColor === 'white') {
-            url.searchParams.set('logoColor', 'white');
+            params.set('logoColor', 'white');
         }
 
-        return url.toString();
+        // Logic split based on mode
+        let baseUrl = 'https://img.shields.io';
+
+        if (mode === 'github') {
+            // GitHub Mode: https://img.shields.io/github/stars/user/repo
+            // Supported types: stars, forks, watchers, issues, issues-pr, last-commit, license, etc.
+            baseUrl += `/github/${ghType}/${ghUser}/${ghRepo}`;
+
+            // GitHub badges automatically handle label/message usually, but we can override label or color
+            if (safeColor && safeColor !== 'blue') {
+                // Color is complex for GitHub badges as they often have default colors (like green for passing)
+                // But for social/stats, we can often override.
+                // Actually, standard shields can override color with ?color=.... let's try standard param.
+                params.set('color', safeColor);
+            }
+            // Fix: Do not override label in GitHub mode by default. relying on Shields.io default (e.g. "stars", "forks")
+            // If we wanted to support override, we'd need a separate/optional input.
+        } else {
+            // Custom Mode: https://img.shields.io/badge/Label-Message-Color
+            const safeLabel = escape(label || '');
+            const safeMessage = escape(message || '');
+
+            const encodedLabel = encodeURIComponent(safeLabel);
+            const encodedMessage = encodeURIComponent(safeMessage);
+
+            const path = encodedLabel ? `${encodedLabel}-${encodedMessage}` : encodedMessage;
+            const colorPart = safeColor ? `-${safeColor}` : '';
+
+            baseUrl += `/badge/${path}${colorPart}`;
+        }
+
+        return `${baseUrl}?${params.toString()}`;
     };
 
     const previewUrl = generateUrl();
     const isImgError = failedUrl === previewUrl;
 
-    const imageMarkdown = `![${label} ${message}](${previewUrl})`;
+    const altText = mode === 'github' ? `${ghType} - ${ghUser}/${ghRepo}` : `${label} ${message}`;
+    const imageMarkdown = `![${altText}](${previewUrl})`;
     const markdownCode = customLink ? `[${imageMarkdown}](${customLink})` : imageMarkdown;
 
     const copyToClipboard = () => {
@@ -163,7 +191,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     </div>
                                     <input
                                         type="text"
-                                        placeholder="Search technology (e.g. Next.js)..."
+                                        placeholder="Search an icon (e.g. Next.js, Docker, Python)..."
                                         className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -225,30 +253,103 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
 
                             {/* 2. Content Configuration */}
                             <div className="space-y-6">
-                                <h3 className="text-xl font-semibold text-zinc-300 flex items-center gap-2">
-                                    <Type className="w-5 h-5 text-zinc-500" /> Content
-                                </h3>
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-xl font-semibold text-zinc-300 flex items-center gap-2">
+                                        <Type className="w-5 h-5 text-zinc-500" /> Content
+                                    </h3>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Label (Left)</label>
-                                        <input
-                                            type="text"
-                                            value={label}
-                                            onChange={(e) => setLabel(e.target.value)}
-                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Message (Right)</label>
-                                        <input
-                                            type="text"
-                                            value={message}
-                                            onChange={(e) => setMessage(e.target.value)}
-                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
-                                        />
+                                    {/* Mode Toggle */}
+                                    <div className="flex bg-black/20 p-1 rounded-lg">
+                                        <button
+                                            onClick={() => setMode('custom')}
+                                            className={cn(
+                                                "px-3 py-1.5 text-xs font-medium rounded-md transition-all",
+                                                mode === 'custom' ? "bg-zinc-800 text-white shadow" : "text-zinc-500 hover:text-zinc-300"
+                                            )}
+                                        >
+                                            Custom
+                                        </button>
+                                        <button
+                                            onClick={() => setMode('github')}
+                                            className={cn(
+                                                "px-3 py-1.5 text-xs font-medium rounded-md transition-all",
+                                                mode === 'github' ? "bg-zinc-800 text-white shadow" : "text-zinc-500 hover:text-zinc-300"
+                                            )}
+                                        >
+                                            GitHub
+                                        </button>
                                     </div>
                                 </div>
+
+                                {mode === 'custom' ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Label (Left)</label>
+                                            <input
+                                                type="text"
+                                                value={label}
+                                                onChange={(e) => setLabel(e.target.value)}
+                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Message (Right)</label>
+                                            <input
+                                                type="text"
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)}
+                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                            />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">GitHub User</label>
+                                            <input
+                                                type="text"
+                                                value={ghUser}
+                                                onChange={(e) => setGhUser(e.target.value)}
+                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Repository</label>
+                                            <input
+                                                type="text"
+                                                value={ghRepo}
+                                                onChange={(e) => setGhRepo(e.target.value)}
+                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                            />
+                                        </div>
+                                        <div className="col-span-1 md:col-span-2 space-y-2">
+                                            <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Badge Type</label>
+                                            <select
+                                                value={ghType}
+                                                onChange={(e) => setGhType(e.target.value)}
+                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 text-zinc-300 appearance-none"
+                                            >
+                                                <option value="stars">Stars</option>
+                                                <option value="forks">Forks</option>
+                                                <option value="watchers">Watchers</option>
+                                                <option value="issues">Issues</option>
+                                                <option value="issues-pr">Pull Requests</option>
+                                                <option value="last-commit">Last Commit</option>
+                                                <option value="license">License</option>
+                                                <option value="v/release">Latest Release</option>
+                                                <option value="v/tag">Latest Tag</option>
+                                                <option value="contributors">Contributors</option>
+                                                <option value="commit-activity/m">Commit Activity (Monthly)</option>
+                                                <option value="commit-activity/y">Commit Activity (Yearly)</option>
+                                                <option value="discussions">Discussions</option>
+                                                <option value="followers">Followers</option>
+                                                <option value="size">Repo Size</option>
+                                                <option value="languages/top">Top Language</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                )}
+
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
@@ -383,6 +484,6 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
 
             {/* Footer */}
             <Footer />
-        </div>
+        </div >
     );
 }
