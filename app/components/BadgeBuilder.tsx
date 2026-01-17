@@ -40,6 +40,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [color, setColor] = useState(defaultIcon?.hex || 'blue');
     const [logoColor, setLogoColor] = useState('white');
     const [style, setStyle] = useState<'flat' | 'flat-square' | 'for-the-badge' | 'plastic' | 'social'>('for-the-badge');
+    const [customLink, setCustomLink] = useState('');
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -108,7 +109,8 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
         setImgError(false);
     }, [previewUrl]);
 
-    const markdownCode = `![${label} ${message}](${previewUrl})`;
+    const imageMarkdown = `![${label} ${message}](${previewUrl})`;
+    const markdownCode = customLink ? `[${imageMarkdown}](${customLink})` : imageMarkdown;
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(markdownCode);
@@ -250,6 +252,18 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                             {selectedIcon && <option value={selectedIcon.hex}>Brand ({selectedIcon.hex})</option>}
                                         </select>
                                     </div>
+                                </div>
+                                <div className="space-y-2 pt-4 border-t border-white/5">
+                                    <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
+                                        Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
+                                    </label>
+                                    <input
+                                        type="url"
+                                        placeholder="https://your-project.com"
+                                        value={customLink}
+                                        onChange={(e) => setCustomLink(e.target.value)}
+                                        className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300 placeholder:text-zinc-700"
+                                    />
                                 </div>
                             </div>
                         </div>
