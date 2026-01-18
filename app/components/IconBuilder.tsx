@@ -167,7 +167,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                         {/* Vertical Separator */}
                         <div className="hidden lg:block absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent" />
                         {/* Mobile/Desktop Header optimized for sidebar feeling */}
-                        <div className="flex flex-col gap-6 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
+                        <div className="flex flex-col gap-4 mb-4 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-8">
                             <div className="flex items-center gap-4">
                                 <div className="w-32 h-32 relative flex items-center justify-center">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -196,7 +196,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto space-y-8 px-6 md:px-8 lg:px-12 pb-20 custom-scrollbar">
+                        <div className="flex-1 overflow-y-auto space-y-4 px-6 md:px-8 lg:px-12 pb-8 custom-scrollbar">
                             {/* Search Box */}
                             <div className="relative z-50">
                                 <div className="relative group">
@@ -206,7 +206,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                     <input
                                         type="text"
                                         placeholder="Search an icon (e.g. Next.js, Docker, Python)..."
-                                        className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                                        className="w-full pl-12 pr-4 py-3 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-base placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
@@ -314,12 +314,12 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                     </div>
 
-                    <div className="lg:col-span-5 h-full overflow-y-auto p-4 md:p-6 lg:p-8 relative">
+                    <div className="lg:col-span-5 h-full overflow-y-auto p-4 md:p-6 lg:p-4 relative">
                         {/* Static Spotlights Removed for uniformity */}
 
-                        <div className="max-w-xl mx-auto space-y-4 pb-20">
+                        <div className="max-w-xl mx-auto space-y-3 pb-8">
                             {/* Configuration Panel */}
-                            <div className="glass rounded-3xl p-5 space-y-4">
+                            <div className="glass rounded-3xl p-3 space-y-3">
                                 <div className="flex items-center gap-2 text-zinc-300 font-semibold border-b border-white/5 pb-3">
                                     <Settings className="w-5 h-5" />
                                     <h3>Configuration</h3>
@@ -372,7 +372,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                                     {/* Features */}
                                     <div className="space-y-3 pt-2 border-t border-white/5">
-                                        <div className="flex items-center justify-between">
+                                        <div className="flex items-center justify-start gap-3">
                                             <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Show Labels</label>
                                             <button
                                                 onClick={() => setShowLabels(!showLabels)}
@@ -447,7 +447,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                             {/* Preview & Code Card */}
                             <div className="glass rounded-3xl overflow-hidden relative group p-1">
                                 {/* Header */}
-                                <div className="p-4 border-b border-white/5 flex items-center justify-between relative z-10">
+                                <div className="p-3 border-b border-white/5 flex items-center justify-between relative z-10">
                                     <h3 className="font-semibold text-zinc-300 flex items-center gap-2">Preview</h3>
                                     <div className="flex gap-2">
                                         <div className="w-3 h-3 rounded-full bg-red-500/20" />
@@ -458,7 +458,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                                 {/* Preview Area */}
                                 <div className={cn(
-                                    "p-8 min-h-[160px] flex items-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5",
+                                    "p-4 min-h-[80px] flex items-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5",
                                     alignment === 'left' && "justify-start",
                                     alignment === 'center' && "justify-center",
                                     alignment === 'right' && "justify-end"
@@ -477,7 +477,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                                 {/* Image Actions */}
                                 {selectedIcons.length > 0 && (
-                                    <div className="px-4 pt-4 pb-2 flex gap-2 relative z-10">
+                                    <div className="px-3 pt-3 pb-2 flex gap-2 relative z-10">
                                         <button
                                             onClick={handleCopyImage}
                                             className={cn(
@@ -503,7 +503,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
-                                        className="p-4 relative z-10 space-y-3"
+                                        className="p-3 relative z-10 space-y-2"
                                     >
                                         <div className="flex items-center justify-between">
                                             <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Markdown</h3>
