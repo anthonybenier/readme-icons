@@ -154,7 +154,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                         <div className="hidden lg:block absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent" />
 
                         {/* Header */}
-                        <div className="flex flex-col gap-6 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
+                        <div className="flex flex-col gap-4 mb-4 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-8">
                             <div className="flex items-center gap-4">
                                 <div className="w-32 h-32 relative flex items-center justify-center">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -178,7 +178,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                         </div>
 
                         {/* Content Scroll Area */}
-                        <div className="lg:flex-1 lg:overflow-y-auto min-h-0 space-y-8 px-6 md:px-8 lg:px-12 pb-10 lg:pb-20 custom-scrollbar">
+                        <div className="lg:flex-1 lg:overflow-y-auto min-h-0 space-y-4 px-6 md:px-8 lg:px-12 pb-10 lg:pb-8 custom-scrollbar">
 
                             {/* 1. Select Tech */}
                             <div className="space-y-4">
@@ -189,7 +189,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     <input
                                         type="text"
                                         placeholder="Search an icon (e.g. Next.js, Docker, Python)..."
-                                        className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                                        className="w-full pl-12 pr-4 py-3 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-base placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
@@ -221,7 +221,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                 </div>
 
                                 {/* Selected Icon Display */}
-                                <div className="flex items-center justify-between bg-zinc-900/50 border border-white/5 p-4 rounded-xl">
+                                <div className="flex items-center justify-between bg-zinc-900/50 border border-white/5 p-3 rounded-xl">
                                     <div className="flex items-center gap-3">
                                         {selectedIcon ? (
                                             <>
@@ -249,9 +249,9 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                             </div>
 
                             {/* 2. Content Configuration */}
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <h3 className="text-xl font-semibold text-zinc-300 flex items-center gap-2">
+                                    <h3 className="text-lg font-semibold text-zinc-300 flex items-center gap-2">
                                         <Type className="w-5 h-5 text-zinc-500" /> Content
                                     </h3>
 
@@ -286,7 +286,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                                 type="text"
                                                 value={label}
                                                 onChange={(e) => setLabel(e.target.value)}
-                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-sm text-zinc-300"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -295,19 +295,19 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                                 type="text"
                                                 value={message}
                                                 onChange={(e) => setMessage(e.target.value)}
-                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-sm text-zinc-300"
                                             />
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">GitHub User</label>
                                             <input
                                                 type="text"
                                                 value={ghUser}
                                                 onChange={(e) => setGhUser(e.target.value)}
-                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-sm text-zinc-300"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -316,7 +316,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                                 type="text"
                                                 value={ghRepo}
                                                 onChange={(e) => setGhRepo(e.target.value)}
-                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-sm text-zinc-300"
                                             />
                                         </div>
                                         <div className="col-span-1 md:col-span-2 space-y-2">
@@ -324,7 +324,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                             <select
                                                 value={ghType}
                                                 onChange={(e) => setGhType(e.target.value)}
-                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 text-zinc-300 appearance-none"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 text-sm text-zinc-300 appearance-none"
                                             >
                                                 <option value="stars">Stars</option>
                                                 <option value="forks">Forks</option>
@@ -352,7 +352,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     <div className="space-y-2">
                                         <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Color</label>
                                         <div className="flex gap-3">
-                                            <div className="relative w-12 h-12 rounded-xl border border-white/10 shrink-0 shadow-lg overflow-hidden group">
+                                            <div className="relative w-10 h-10 rounded-xl border border-white/10 shrink-0 shadow-lg overflow-hidden group">
                                                 <div className="absolute inset-0 transition-colors" style={{ backgroundColor: /^[0-9a-fA-F]{3,8}$/.test(color.trim()) && !color.startsWith('#') ? `#${color}` : color }} />
                                                 <input
                                                     type="color"
@@ -364,7 +364,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                                 type="text"
                                                 value={color}
                                                 onChange={(e) => setColor(e.target.value)}
-                                                className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors font-mono text-sm uppercase text-zinc-300"
+                                                className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors font-mono text-sm uppercase text-zinc-300"
                                             />
                                         </div>
                                     </div>
@@ -374,7 +374,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         <select
                                             value={logoColor}
                                             onChange={(e) => setLogoColor(e.target.value)}
-                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 appearance-none text-zinc-300"
+                                            className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 appearance-none text-sm text-zinc-300"
                                         >
                                             <option value="white">White</option>
                                             <option value="black">Black</option>
@@ -382,25 +382,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="space-y-2 pt-4 border-t border-white/5">
-                                    <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
-                                        Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
-                                        <div className="group relative">
-                                            <Info className="w-3.5 h-3.5 text-zinc-500 hover:text-zinc-300 cursor-help" />
-                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-zinc-900 border border-white/10 rounded-lg text-xs text-zinc-300 w-48 text-center shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 normal-case tracking-normal">
-                                                Makes the badge clickable, redirecting users to this URL.
-                                                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-zinc-900" />
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <input
-                                        type="url"
-                                        placeholder="https://your-project.com"
-                                        value={customLink}
-                                        onChange={(e) => setCustomLink(e.target.value)}
-                                        className="w-full px-4 py-3 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-zinc-300 placeholder:text-zinc-700"
-                                    />
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -410,7 +392,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                         <div className="max-w-xl mx-auto space-y-4">
 
                             {/* Settings Panel */}
-                            <div className="glass rounded-3xl p-5 space-y-4">
+                            <div className="glass rounded-3xl p-4 space-y-4">
                                 <div className="flex items-center gap-2 text-zinc-300 font-semibold border-b border-white/5 pb-3">
                                     <Palette className="w-5 h-5" />
                                     <h3>Style Configuration</h3>
@@ -435,11 +417,30 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         ))}
                                     </div>
                                 </div>
+                                <div className="space-y-2 pt-4 border-t border-white/5">
+                                    <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
+                                        Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
+                                        <div className="group relative">
+                                            <Info className="w-3.5 h-3.5 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-zinc-900 border border-white/10 rounded-lg text-xs text-zinc-300 w-48 text-center shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 normal-case tracking-normal">
+                                                Makes the badge clickable, redirecting users to this URL.
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-zinc-900" />
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input
+                                        type="url"
+                                        placeholder="https://your-project.com"
+                                        value={customLink}
+                                        onChange={(e) => setCustomLink(e.target.value)}
+                                        className="w-full px-3 py-2 bg-zinc-900/50 border border-white/5 rounded-xl outline-none focus:border-white/20 transition-colors text-sm text-zinc-300 placeholder:text-zinc-700"
+                                    />
+                                </div>
                             </div>
 
                             {/* Preview Card */}
                             <div className="glass rounded-3xl overflow-hidden relative group p-1">
-                                <div className="p-4 border-b border-white/5 flex items-center justify-between relative z-10">
+                                <div className="p-3 border-b border-white/5 flex items-center justify-between relative z-10">
                                     <h3 className="font-semibold text-zinc-300 flex items-center gap-2">Preview</h3>
                                     <div className="flex gap-2">
                                         <div className="w-3 h-3 rounded-full bg-red-500/20" />
@@ -448,7 +449,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     </div>
                                 </div>
 
-                                <div className="p-8 min-h-[160px] flex items-center justify-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5">
+                                <div className="p-4 min-h-[80px] flex items-center justify-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5">
                                     <motion.img
                                         key={previewUrl}
                                         initial={{ scale: 0.9, opacity: 0 }}
@@ -465,7 +466,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     )}
                                 </div>
 
-                                <div className="p-4 relative z-10 space-y-3">
+                                <div className="p-3 relative z-10 space-y-2">
                                     <div className="flex items-center justify-between">
                                         <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Markdown</h3>
                                         <button
