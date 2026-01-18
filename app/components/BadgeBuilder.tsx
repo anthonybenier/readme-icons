@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Copy, Check, Palette, Type } from 'lucide-react';
+import { Search, Copy, Check, Palette, Type, Info } from 'lucide-react';
 import Link from 'next/link';
 import Footer from './Footer';
 import { clsx } from 'clsx';
@@ -378,6 +378,13 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                 <div className="space-y-2 pt-4 border-t border-white/5">
                                     <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
                                         Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
+                                        <div className="group relative">
+                                            <Info className="w-3.5 h-3.5 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-zinc-900 border border-white/10 rounded-lg text-xs text-zinc-300 w-48 text-center shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                                                Makes the badge clickable, redirecting users to this URL.
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-zinc-900" />
+                                            </div>
+                                        </div>
                                     </label>
                                     <input
                                         type="url"
