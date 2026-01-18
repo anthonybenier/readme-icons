@@ -48,6 +48,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [style, setStyle] = useState<'flat' | 'flat-square' | 'for-the-badge' | 'plastic' | 'social'>('for-the-badge');
     const [customLink, setCustomLink] = useState('');
     const [failedUrl, setFailedUrl] = useState<string | null>(null);
+    const [alignment, setAlignment] = useState<'center' | 'left' | 'right'>('left');
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -132,7 +133,12 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
 
     const altText = mode === 'github' ? `${ghType} - ${ghUser}/${ghRepo}` : `${label} ${message}`;
     const imageMarkdown = `![${altText}](${previewUrl})`;
-    const markdownCode = customLink ? `[${imageMarkdown}](${customLink})` : imageMarkdown;
+    let markdownCode = customLink ? `[${imageMarkdown}](${customLink})` : imageMarkdown;
+
+    if (alignment === 'center' || alignment === 'right') {
+        const linkWrapper = customLink ? `  <a href="${customLink}">\n    <img src="${previewUrl}" alt="${altText}" />\n  </a>` : `  <img src="${previewUrl}" alt="${altText}" />`;
+        markdownCode = `<p align="${alignment}">\n${linkWrapper}\n</p>`;
+    }
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(markdownCode);
@@ -417,6 +423,25 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         ))}
                                     </div>
                                 </div>
+                                {/* Alignment */}
+                                <div className="space-y-2">
+                                    <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Alignment</label>
+                                    <div className="grid grid-cols-3 gap-2 bg-black/20 p-1 rounded-xl">
+                                        {(['left', 'center', 'right'] as const).map((align) => (
+                                            <button
+                                                key={align}
+                                                onClick={() => setAlignment(align)}
+                                                className={cn(
+                                                    "flex items-center justify-center py-2 rounded-lg text-sm font-medium transition-all capitalize",
+                                                    alignment === align ? "bg-zinc-800 text-white shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                                                )}
+                                            >
+                                                {align}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
                                 <div className="space-y-2 pt-4 border-t border-white/5">
                                     <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
                                         Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
@@ -449,7 +474,12 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     </div>
                                 </div>
 
-                                <div className="p-4 min-h-[80px] flex items-center justify-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5">
+                                <div className={cn(
+                                    "p-4 min-h-[80px] flex items-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5",
+                                    alignment === 'left' && "justify-start",
+                                    alignment === 'center' && "justify-center",
+                                    alignment === 'right' && "justify-end"
+                                )}>
                                     <motion.img
                                         key={previewUrl}
                                         initial={{ scale: 0.9, opacity: 0 }}

@@ -76,7 +76,11 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     if (theme !== 'dark') params.set('t', theme);
     if (iconSize !== 48) params.set('size', iconSize.toString());
     if (iconsPerLine !== 15) params.set('perline', iconsPerLine.toString());
-    if (alignment !== 'left') params.set('align', alignment);
+    const hasMultipleRows = selectedIcons.length > iconsPerLine;
+    const isLastRowPartial = selectedIcons.length % iconsPerLine !== 0; // Check if the last row is not full
+
+    // Only add align param if it affects the layout (multiple rows + partial last row)
+    if (alignment !== 'left' && hasMultipleRows && isLastRowPartial) params.set('align', alignment);
     if (showLabels) params.set('labels', 'true');
 
     const queryString = params.toString();
