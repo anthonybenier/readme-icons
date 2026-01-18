@@ -1,10 +1,20 @@
-![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/banner.png?raw=true)
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/readme_assets/banner.png?raw=true)
+<p align="center">
+   <img src="https://img.shields.io/badge/Simple_Icons-16.6.0-FDDA1B?style=for-the-badge&logo=simpleicons&logoColor=white" alt="Simple Icons 16.6.0" />
+   <img src="https://img.shields.io/badge/Next.js-16.1.3-FDDA1B?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 16.1.3" />
+   <img src="https://img.shields.io/badge/Tailwind_CSS-v4-fdda1b?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+</p>
 
 # Readme Icons
 
 Generate dynamic, beautiful SVG skill icons for your GitHub Profile README.
 
+![stars - anthonybenier/readme-icons](https://img.shields.io/github/stars/anthonybenier/readme-icons?style=for-the-badge&logo=github&logoColor=white&color=green)
+
+![last-commit - anthonybenier/readme-icons](https://img.shields.io/github/last-commit/anthonybenier/readme-icons?style=for-the-badge&logo=github&logoColor=white&color=green)
+
 ![Demo](https://readme-icons.com/api/icons?i=react,nextjs,typescript,tailwind,vercel&theme=dark)
+
 
 ## Icon builder
 Use the [Builder Interface](https://readme-icons.com) to interactively search, select, and configure your stack.
