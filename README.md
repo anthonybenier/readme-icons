@@ -33,7 +33,7 @@ Use the [Builder Interface](https://readme-icons.com) to interactively search, s
 You can now configure and add badges from shields.io ! 
 Create **Custom badges** with your own text or dynamic **GitHub badges** to display live repository stats (Stars, Forks, License, etc.). 
 
-[Image](https://github.com/anthonybenier/readme-icons/blob/main/public/readme_assets/badgeBuilder.png?raw=true)
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/readme_assets/badgeBuilder.png?raw=true)
 
 
 ## Credits
