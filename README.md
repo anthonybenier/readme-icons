@@ -1,4 +1,4 @@
-![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/banner.png?raw=true)
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/readme_assets/banner.png?raw=true)
 
 # Readme Icons
 
