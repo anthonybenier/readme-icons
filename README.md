@@ -1,7 +1,7 @@
 ![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/readme_assets/banner.png?raw=true)
 <p align="center">
-   <img src="https://img.shields.io/badge/Simple_Icons-16.22.0-FDDA1B?style=for-the-badge&logo=simpleicons&logoColor=white" alt="Simple Icons 16.22.0" />
-   <img src="https://img.shields.io/badge/Next.js-16.2.3-FDDA1B?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 16.2.3" />
+   <img src="https://img.shields.io/badge/Simple_Icons-16.28.0-FDDA1B?style=for-the-badge&logo=simpleicons&logoColor=white" alt="Simple Icons 16.28.0" />
+   <img src="https://img.shields.io/badge/Next.js-16.3.3-FDDA1B?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 16.3.3" />
    <img src="https://img.shields.io/badge/Tailwind_CSS-v4-fdda1b?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
 </p>
 
