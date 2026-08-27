@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { Search, Copy, Check, GripVertical, Trash2, Settings, Moon, Sun, Download, Image as ImageIcon, Info } from 'lucide-react';
 import Link from 'next/link';
@@ -28,7 +28,11 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const [selectedIcons, setSelectedIcons] = useState<SimpleIcon[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [copied, setCopied] = useState(false);
-    const [isClient, setIsClient] = useState(false);
+    const isClient = useSyncExternalStore(
+        () => () => {},
+        () => true,
+        () => false
+    );
 
     // Image Actions State
     const [downloading, setDownloading] = useState(false);
@@ -42,10 +46,6 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const [alignment, setAlignment] = useState<'center' | 'left' | 'right'>('left');
     const [showLabels, setShowLabels] = useState(false);
     const [customLink, setCustomLink] = useState('');
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
 
     // Filter icons based on search query
     const filteredIcons = useMemo(() => {
